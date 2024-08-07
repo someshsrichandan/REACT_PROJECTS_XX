@@ -41,7 +41,7 @@ To get this project running locally, follow these steps:
 
 2. **Navigate to the project directory:**
    ```bash
-   cd REACT_PROJECT_XX
+   cd REACT_PROJECT_XX\to_do_list\
    ```
 
 3. **Install dependencies:**
