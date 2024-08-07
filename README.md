@@ -1,6 +1,10 @@
 
 # 🚀 **REACT_PROJECT_XX**
 
+<details open>
+<summary>📝REACT_PROJECT_01 - TO-DO_LIST</summary>
+<br>
+
 Welcome to **REACT_PROJECT_01**! This is a sleek and user-friendly React to-do list application designed to help you manage your tasks effectively. With a clean interface and robust functionality, you can effortlessly keep track of your to-dos.
 
 ## 🌟 **Features**
@@ -64,6 +68,7 @@ To get this project running locally, follow these steps:
 - **Deleting a Task**: Click "Delete" next to the task you want to remove.
 - **Viewing Completed Tasks**: Navigate to the "Completed Tasks" section.
 - **Handling Incomplete Tasks**: Receive alerts for tasks that need attention.
+</details>
 
 ## 🎥 **Upcoming Project: YouTube Clone**
 
