@@ -20,11 +20,14 @@ Welcome to **REACT_PROJECT_01**! This is a sleek and user-friendly React to-do l
 
 Here are some snapshots of the application:
 
-![Task List](path-to-screenshot-1)  
+![Task List](https://github.com/someshsrichandan/REACT_PROJECTS_XX/blob/main/Images/to-do-1.png)  
 *Task List View*
 
-![Add Task](path-to-screenshot-2)  
+![Add Task](https://github.com/someshsrichandan/REACT_PROJECTS_XX/blob/main/Images/to-do-3.png)  
 *Adding a New Task*
+
+![Completed Task](https://github.com/someshsrichandan/REACT_PROJECTS_XX/blob/main/Images/to-do-2.png)  
+*Completed Task*
 
 ## 🚀 **Getting Started**
 
