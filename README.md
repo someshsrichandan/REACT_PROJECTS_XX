@@ -62,6 +62,16 @@ To get this project running locally, follow these steps:
 - **Viewing Completed Tasks**: Navigate to the "Completed Tasks" section.
 - **Handling Incomplete Tasks**: Receive alerts for tasks that need attention.
 
+## 🎥 **Upcoming Project: YouTube Clone**
+
+The second project in this repository will be a YouTube clone. This project is currently in progress and will aim to replicate key features of YouTube, including:
+
+- **🔍 Search Functionality**: Search for videos by title, description, or tags.
+- **📹 Video Playback**: Watch videos with a responsive player.
+- **💬 Comments Section**: Post and view comments on videos.
+
+Stay tuned for updates as we continue to develop this exciting project!
+
 ## 🤝 **Contributing**
 
 We welcome contributions! If you have any improvements or ideas, please submit a pull request or open an issue.
@@ -69,6 +79,3 @@ We welcome contributions! If you have any improvements or ideas, please submit a
 
 ---
 
-Feel free to replace the placeholder text and paths with your actual content. This version incorporates emojis and formatting for a more engaging look!
-=======
-# REACT_PROJECTS_XX
