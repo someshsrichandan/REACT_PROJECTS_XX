@@ -1,8 +1,8 @@
 
 # 🚀 **REACT_PROJECT_XX**
 
-<details open>
-<summary>📝REACT_PROJECT_01 - TO-DO_LIST</summary>
+<details close>
+<summary><h1> 📝REACT_PROJECT_01 - TO-DO_LIST</h1></summary>
 <br>
 
 Welcome to **REACT_PROJECT_01**! This is a sleek and user-friendly React to-do list application designed to help you manage your tasks effectively. With a clean interface and robust functionality, you can effortlessly keep track of your to-dos.
