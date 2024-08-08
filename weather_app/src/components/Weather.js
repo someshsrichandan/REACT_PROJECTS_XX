@@ -15,7 +15,7 @@ export const Weather = () => {
                 xvdfvfjk
             </div>
             <div className='flex'>
-                <div className='w-[34rem] h-56 m-5 backdrop-blur-sm bg-white/15 rounded-xl shadow-2xl'>
+                <div className='w-[34rem] h-56 m-5 backdrop-blur-sm bg-white/15 rounded-xl shadow-2xl  '>
 
                 </div>
                 <div className='w-[34rem] h-56 m-5 backdrop-blur-sm bg-white/15 rounded-xl shadow-2xl'>
