@@ -9,7 +9,7 @@ export const Weather = () => {
 
     const handleSearchClick = () => {
         if (searchQuery) {
-            // Implement your search functionality here
+           
             console.log('Searching for:', searchQuery);
         } else {
             setIsSearchActive(!isSearchActive);
@@ -29,7 +29,7 @@ export const Weather = () => {
                 backgroundImage: `url(${Day})`, 
                 backgroundSize: 'cover', 
                 backgroundPosition: 'center',
-                filter: 'brightness(0.9)'  // Adjust the brightness value as needed
+                filter: 'brightness(0.9)'  
             }}
         >
             <div className="w-[80rem] h-[18rem] mt-10 backdrop-blur-sm bg-white/5 rounded-xl shadow-2xl flex justify-between ">
