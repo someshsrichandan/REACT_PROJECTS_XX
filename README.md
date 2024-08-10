@@ -69,6 +69,8 @@
    - **Viewing Completed Tasks**: Navigate to the "Completed Tasks" section.
    - **Handling Incomplete Tasks**: Receive alerts for tasks that need attention.
 </details>
+   
+<details close>
    <summary><h1> 📝REACT_PROJECT_02 - WeatherApp</h1></summary>
    # 🌤️ WeatherApp
 
@@ -104,8 +106,6 @@ Follow these steps to set up the project locally:
 1. **Clone the Repository:**
    ```bash
    git clone https://github.com/your-username/WeatherApp.git
-
-<details close>
 
 </details>
 ## 🎥 **Upcoming Project: YouTube Clone**
