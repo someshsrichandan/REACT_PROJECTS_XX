@@ -39,7 +39,7 @@
 
    1. **Clone the repository:**
       ```bash
-      git clone https://github.com/your-username/REACT_PROJECT_XX.git
+      git clone https://github.com/someshsrichandan/REACT_PROJECT_XX.git
       ```
 
    2. **Navigate to the project directory:**
@@ -105,8 +105,25 @@ Follow these steps to set up the project locally:
 
 1. **Clone the Repository:**
    ```bash
-   git clone https://github.com/your-username/WeatherApp.git
+   git clone https://github.com/someshsrichandan/REACT_PROJECT_XX.git
 
+2. **Navigate to the project directory:**
+   ```bash
+   cd REACT_PROJECT_XX\weather_app
+3. **Install dependencies:**
+      ```bash
+      npm install
+      ```
+
+4. **Start the development server:**
+      ```bash
+      npm start
+      ```
+
+5. **Open your browser and go to:**
+      ```
+      http://localhost:3000
+      ```
 </details>
 ## 🎥 **Upcoming Project: YouTube Clone**
 
