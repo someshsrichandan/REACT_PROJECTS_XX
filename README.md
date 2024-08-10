@@ -76,7 +76,7 @@
 
 Welcome to WeatherApp, a beautifully designed weather application that provides live weather data, a 5-day forecast, and detailed weather metrics for any location around the globe. With a sleek and modern UI, users can easily search for their desired location and get real-time weather updates, air quality information, and more.
 
-![WeatherApp Screenshot](screenshot.png)
+![WeatherApp Screenshot](https://github.com/someshsrichandan/REACT_PROJECTS_XX/blob/main/Images/weatherapp.jpg)
 
 ## 🚀 Features
 
