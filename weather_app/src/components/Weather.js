@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Day from '../assets/bg2.jpg';
 import WeatherDetails from './WeatherDetails';
 import ForecastGraph from './ForecastGraph';
+import Shimmer from './Shimmer';
 
 export const Weather = () => {
     const [isSearchActive, setIsSearchActive] = useState(false);
@@ -10,6 +11,7 @@ export const Weather = () => {
     const [forecastData, setForecastData] = useState(null);
     const [suggestions, setSuggestions] = useState([]);
     const [airQuality, setAirQuality] = useState(null);
+    const [loading, setLoading] = useState(true);
 
     const apiKey = '4088cfc1b43e1e1ec6e8b38ac9186ce3';
 
@@ -18,21 +20,21 @@ export const Weather = () => {
     }, []);
 
     const getWeatherCurrent = async (lat, lon) => {
+        setLoading(true);
         const weatherResponse = await fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=metric&appid=${apiKey}`);
         const weatherData = await weatherResponse.json();
         setWeatherData(weatherData);
 
-        // Fetch 5-day forecast data
         const forecastResponse = await fetch(`https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&units=metric&appid=${apiKey}`);
         const forecastData = await forecastResponse.json();
-        // Filter to get one forecast per day (at 12:00 PM local time)
         const dailyForecasts = forecastData.list.filter((item) => item.dt_txt.includes('12:00:00'));
         setForecastData(dailyForecasts);
 
-        // Fetch air quality data
         const airQualityResponse = await fetch(`http://api.openweathermap.org/data/2.5/air_pollution?lat=${lat}&lon=${lon}&appid=${apiKey}`);
         const airQualityJson = await airQualityResponse.json();
         setAirQuality(airQualityJson.list[0].main.aqi);
+
+        setLoading(false);
     };
 
     const fetchSuggestions = async (query) => {
@@ -79,11 +81,19 @@ export const Weather = () => {
         >
             <div className="w-[80rem] h-[18rem] mt-10 backdrop-blur-sm bg-white/5 rounded-xl shadow-2xl flex justify-between">
                 <div className='flex flex-col ml-20 text-left mt-14 gap-10'>
-                    <h1 className="text-4xl text-white font-bold">{weatherData?.name}</h1>
-                    <h1 className="text-6xl font-bold text-yellow-400">
-                        {Math.round(weatherData?.main?.temp)}°C 
-                        <span className='text-2xl ml-4 text-white'>{weatherData?.weather[0]?.description}</span>
-                    </h1>
+                    {loading ? (
+                        <div className="w-32 h-8 bg-gray-700 rounded-md animate-pulse"></div>
+                    ) : (
+                        <h1 className="text-4xl text-white font-bold">{weatherData?.name}</h1>
+                    )}
+                    {loading ? (
+                        <div className="w-40 h-12 bg-gray-700 rounded-md animate-pulse"></div>
+                    ) : (
+                        <h1 className="text-6xl font-bold text-yellow-400">
+                            {Math.round(weatherData?.main?.temp)}°C 
+                            <span className='text-2xl ml-4 text-white'>{weatherData?.weather[0]?.description}</span>
+                        </h1>
+                    )}
                 </div>
                 <div className='flex flex-col gap-5 mx-20 my-10 relative'>
                     <div className="flex items-center justify-end relative">
@@ -126,23 +136,42 @@ export const Weather = () => {
                             </ul>
                         )}
                     </div>
-                    <h1 className="text-2xl text-white font-bold text-right">
-                        {getCurrentDate()} 
-                    </h1>
-                    <h1 className="text-2xl text-white font-bold text-right">
-                        Air Quality - {airQuality} - {airQuality === 1 ? 'Good' : airQuality === 2 ? 'Fair' : airQuality === 3 ? 'Moderate' : airQuality === 4 ? 'Poor' : 'Very Poor'}
-                    </h1>
+                    {loading ? (
+                        <div className="w-40 h-8 bg-gray-700 rounded-md animate-pulse"></div>
+                    ) : (
+                        <h1 className="text-2xl text-white font-bold text-right">
+                            {getCurrentDate()} 
+                        </h1>
+                    )}
+                    {loading ? (
+                        <div className="w-48 h-8 bg-gray-700 rounded-md animate-pulse"></div>
+                    ) : (
+                        <h1 className="text-2xl text-white font-bold text-right">
+                            Air Quality - {airQuality} - {airQuality === 1 ? 'Good' : airQuality === 2 ? 'Fair' : airQuality === 3 ? 'Moderate' : airQuality === 4 ? 'Poor' : 'Very Poor'}
+                        </h1>
+                    )}
                 </div>
             </div>
             
             <div className='flex'>
-                <div className='w-[39rem] h-56 m-5 backdrop-blur-sm p-5 gap-3 bg-white/5 rounded-xl shadow-2xl '>
+            {/* Weather Details */}
+            <div className='w-[39rem] h-56 m-5 backdrop-blur-sm p-5 gap-3 bg-white/5 rounded-xl shadow-2xl'>
+                {loading ? (
+                    <div className='mt-10'><Shimmer count={5} /></div>
+                ) : (
                     <WeatherDetails weatherData={weatherData} />
-                </div>
-                <div className='w-[39rem] h-56 m-5 backdrop-blur-sm bg-white/5 rounded-xl shadow-2xl '>
-                    <ForecastGraph forecastData={forecastData} />
-                </div>
+                )}
             </div>
+
+            {/* Forecast Graph */}
+            <div className='w-[39rem] h-56 m-5 backdrop-blur-sm bg-white/5 rounded-xl shadow-2xl'>
+                {loading ? (
+                    <Shimmer className="" count={5} />
+                ) : (
+                    <div className='mt-14'><ForecastGraph forecastData={forecastData} /></div>
+                )}
+            </div>
+        </div>
         </div>
     );
 };
