@@ -13,7 +13,7 @@ export const Weather = () => {
     const apiKey = '4088cfc1b43e1e1ec6e8b38ac9186ce3';
 
     useEffect(() => {
-        getWeatherCurrent(23.7644025, 90.389015); // Default location (Dhaka, Bangladesh)
+        getWeatherCurrent(28.6139, 77.2090); // Coordinates for Delhi, India
     }, []);
 
     const getWeatherCurrent = async (lat, lon) => {
@@ -70,11 +70,11 @@ export const Weather = () => {
             }}
         >
             <div className="w-[80rem] h-[18rem] mt-10 backdrop-blur-sm bg-white/5 rounded-xl shadow-2xl flex justify-between">
-                <div className='flex flex-col ml-20 mt-14 gap-10'>
+                <div className='flex flex-col ml-20 text-left mt-14 gap-10'>
                     <h1 className="text-4xl text-white font-bold">{weatherData?.name}</h1>
-                    <h1 className="text-6xl font-bold text-center text-yellow-400">
+                    <h1 className="text-6xl font-bold  text-yellow-400">
                         {Math.round(weatherData?.main?.temp)}°C 
-                        <span className='text-3xl text-white'>{weatherData?.weather[0]?.description}</span>
+                        <span className='text-2xl ml-4 text-white'>{weatherData?.weather[0]?.description}</span>
                     </h1>
                 </div>
                 <div className='flex flex-col gap-5 mx-20 my-10 relative'>
