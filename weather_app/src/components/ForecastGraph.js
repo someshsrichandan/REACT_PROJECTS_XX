@@ -1,40 +1,25 @@
 import React from 'react';
 
-const getWeatherIcon = (temp) => {
-    if (temp >= 30) {
-        return '🔥'; 
-    } else if (temp >= 25) {
-        return '☀️'; 
-    } else if (temp >= 20) {
-        return '🌤️'; 
-    } else if (temp >= 15) {
-        return '⛅'; 
-    } else if (temp >= 10) {
-        return '🌧️'; 
-    } else if (temp >= 0) {
-        return '❄️'; 
-    } else {
-        return '🌡️'; 
-    }
+const getWeatherIcon = (description) => {
+    if (description.includes('cloud')) return '☁️';
+    if (description.includes('rain')) return '🌧️';
+    if (description.includes('clear')) return '☀️';
+    if (description.includes('snow')) return '❄️';
+    return '🌤️';
 };
 
-const ForecastGraph = () => {
-
-    const forecastData = [
-        { day: 'Mon', temp: 22 },
-        { day: 'Tue', temp: 24 },
-        { day: 'Wed', temp: 20 },
-        { day: 'Thu', temp: 23 },
-        { day: 'Fri', temp: 25 },
-    ];
-
+const ForecastGraph = ({ forecastData }) => {
     return (
         <div className="flex justify-around items-center py-4 mt-10">
-            {forecastData.map((dayData, index) => (
+            {forecastData && forecastData.map((dayData, index) => (
                 <div key={index} className="text-center text-white">
-                    <div className="text-lg font-semibold mb-1">{dayData.day}</div>
-                    <div className="text-4xl mb-2">{getWeatherIcon(dayData.temp)}</div>
-                    <div className="text-xl font-bold">{dayData.temp}°C</div>
+                    <div className="text-lg font-semibold mb-1">
+                        {new Date(dayData.dt_txt).toLocaleDateString('en-US', { weekday: 'short' })}
+                    </div>
+                    <div className="text-4xl mb-2">
+                        {getWeatherIcon(dayData.weather[0].description)}
+                    </div>
+                    <div className="text-xl font-bold">{Math.round(dayData.main.temp)}°C</div>
                 </div>
             ))}
         </div>

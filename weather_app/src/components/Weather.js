@@ -7,6 +7,7 @@ export const Weather = () => {
     const [isSearchActive, setIsSearchActive] = useState(false);
     const [searchQuery, setSearchQuery] = useState('');
     const [weatherData, setWeatherData] = useState(null);
+    const [forecastData, setForecastData] = useState(null);
     const [suggestions, setSuggestions] = useState([]);
     const [airQuality, setAirQuality] = useState(null);
 
@@ -17,9 +18,16 @@ export const Weather = () => {
     }, []);
 
     const getWeatherCurrent = async (lat, lon) => {
-        const response = await fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=metric&appid=${apiKey}`);
-        const jsonData = await response.json();
-        setWeatherData(jsonData);
+        const weatherResponse = await fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=metric&appid=${apiKey}`);
+        const weatherData = await weatherResponse.json();
+        setWeatherData(weatherData);
+
+        // Fetch 5-day forecast data
+        const forecastResponse = await fetch(`https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&units=metric&appid=${apiKey}`);
+        const forecastData = await forecastResponse.json();
+        // Filter to get one forecast per day (at 12:00 PM local time)
+        const dailyForecasts = forecastData.list.filter((item) => item.dt_txt.includes('12:00:00'));
+        setForecastData(dailyForecasts);
 
         // Fetch air quality data
         const airQualityResponse = await fetch(`http://api.openweathermap.org/data/2.5/air_pollution?lat=${lat}&lon=${lon}&appid=${apiKey}`);
@@ -72,7 +80,7 @@ export const Weather = () => {
             <div className="w-[80rem] h-[18rem] mt-10 backdrop-blur-sm bg-white/5 rounded-xl shadow-2xl flex justify-between">
                 <div className='flex flex-col ml-20 text-left mt-14 gap-10'>
                     <h1 className="text-4xl text-white font-bold">{weatherData?.name}</h1>
-                    <h1 className="text-6xl font-bold  text-yellow-400">
+                    <h1 className="text-6xl font-bold text-yellow-400">
                         {Math.round(weatherData?.main?.temp)}°C 
                         <span className='text-2xl ml-4 text-white'>{weatherData?.weather[0]?.description}</span>
                     </h1>
@@ -132,7 +140,7 @@ export const Weather = () => {
                     <WeatherDetails weatherData={weatherData} />
                 </div>
                 <div className='w-[39rem] h-56 m-5 backdrop-blur-sm bg-white/5 rounded-xl shadow-2xl '>
-                    <ForecastGraph forecastData={weatherData} />
+                    <ForecastGraph forecastData={forecastData} />
                 </div>
             </div>
         </div>
