@@ -1,6 +1,6 @@
 import React from 'react'
 
-export default function WeatherDetails(weatherData) {
+export default function WeatherDetails({weatherData}) {
     const details = [
         { label: 'Feels Like', value: `${weatherData?.main?.feels_like}°` || 'N/A' },
         { label: 'Humidity', value: `${weatherData?.main?.humidity}%` || 'N/A' },
