@@ -14,7 +14,6 @@ export const Weather = () => {
     const [loading, setLoading] = useState(true);
 
     const apiKey = process.env.REACT_APP_OPENWEATHER_API_KEY;
-    console.log(process.env.REACT_APP_OPENWEATHER_API_KEY);
     
     
 
