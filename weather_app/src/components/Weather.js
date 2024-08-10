@@ -13,7 +13,10 @@ export const Weather = () => {
     const [airQuality, setAirQuality] = useState(null);
     const [loading, setLoading] = useState(true);
 
-    const apiKey = '4088cfc1b43e1e1ec6e8b38ac9186ce3';
+    const apiKey = process.env.REACT_APP_OPENWEATHER_API_KEY;
+    console.log(process.env.REACT_APP_OPENWEATHER_API_KEY);
+    
+    
 
     useEffect(() => {
         getWeatherCurrent(28.6139, 77.2090); // Coordinates for Delhi, India
