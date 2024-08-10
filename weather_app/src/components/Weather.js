@@ -1,4 +1,4 @@
-import React, { useState ,useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import Day from '../assets/bg2.jpg';
 import WeatherDetails from './WeatherDetails';
 import ForecastGraph from './ForecastGraph';
@@ -7,30 +7,56 @@ export const Weather = () => {
     const [isSearchActive, setIsSearchActive] = useState(false);
     const [searchQuery, setSearchQuery] = useState('');
     const [weatherData, setWeatherData] = useState(null);
-    console.log(weatherData);
+    const [suggestions, setSuggestions] = useState([]);
+    const [airQuality, setAirQuality] = useState(null);
+
+    const apiKey = '4088cfc1b43e1e1ec6e8b38ac9186ce3';
+
     useEffect(() => {
-        getWeatherCurrent();
+        getWeatherCurrent(23.7644025, 90.389015); // Default location (Dhaka, Bangladesh)
     }, []);
-    const getWeatherCurrent = async () => {
-        const data = await fetch('https://api.openweathermap.org/data/2.5/weather?lat=23.7644025&lon=90.389015&units=metric&appid=4088cfc1b43e1e1ec6e8b38ac9186ce3');
-        const jsonData = await data.json();
+
+    const getWeatherCurrent = async (lat, lon) => {
+        const response = await fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=metric&appid=${apiKey}`);
+        const jsonData = await response.json();
         setWeatherData(jsonData);
 
-    }
+        // Fetch air quality data
+        const airQualityResponse = await fetch(`http://api.openweathermap.org/data/2.5/air_pollution?lat=${lat}&lon=${lon}&appid=${apiKey}`);
+        const airQualityJson = await airQualityResponse.json();
+        setAirQuality(airQualityJson.list[0].main.aqi);
+    };
 
-    const handleSearchClick = () => {
-        if (searchQuery) {
-           
-            console.log('Searching for:', searchQuery);
+    const fetchSuggestions = async (query) => {
+        if (query.length > 2) {
+            const response = await fetch(`http://api.openweathermap.org/geo/1.0/direct?q=${query}&limit=5&appid=${apiKey}`);
+            const jsonData = await response.json();
+            setSuggestions(jsonData);
         } else {
-            setIsSearchActive(!isSearchActive);
+            setSuggestions([]);
         }
     };
 
-    const handleSearchInputBlur = () => {
-        if (!searchQuery) {
-            setIsSearchActive(false);
-        }
+    const handleSearchChange = (e) => {
+        const query = e.target.value;
+        setSearchQuery(query);
+        fetchSuggestions(query);
+        setIsSearchActive(true);
+    };
+
+    const handleSuggestionClick = (suggestion) => {
+        setSearchQuery(suggestion.name);
+        setSuggestions([]);
+        getWeatherCurrent(suggestion.lat, suggestion.lon);
+        setIsSearchActive(false);
+    };
+
+    const getCurrentDate = () => {
+        const date = new Date();
+        const dayName = date.toLocaleDateString('en-US', { weekday: 'long' });
+        const day = date.getDate();
+        const month = date.toLocaleDateString('en-US', { month: 'long' });
+        return `${dayName}, ${month} ${day}`;
     };
 
     return (
@@ -43,26 +69,26 @@ export const Weather = () => {
                 filter: 'brightness(0.9)'  
             }}
         >
-            <div className="w-[80rem] h-[18rem] mt-10 backdrop-blur-sm bg-white/5 rounded-xl shadow-2xl flex justify-between ">
-                <div className='flex flex-col ml-20 mt-14 gap-10 '>
+            <div className="w-[80rem] h-[18rem] mt-10 backdrop-blur-sm bg-white/5 rounded-xl shadow-2xl flex justify-between">
+                <div className='flex flex-col ml-20 mt-14 gap-10'>
                     <h1 className="text-4xl text-white font-bold">{weatherData?.name}</h1>
-                    <h1 className="text-6xl font-bold text-center text-yellow-400">{Math.round(weatherData?.main?.temp)}°C <span className='text-3xl text-white'>Overcast</span></h1>
+                    <h1 className="text-6xl font-bold text-center text-yellow-400">
+                        {Math.round(weatherData?.main?.temp)}°C 
+                        <span className='text-3xl text-white'>{weatherData?.weather[0]?.description}</span>
+                    </h1>
                 </div>
                 <div className='flex flex-col gap-5 mx-20 my-10 relative'>
                     <div className="flex items-center justify-end relative">
                         <input 
                             type="text"
-                            className={`bg-transparent border-b-2 border-yellow-400 text-white outline-none transition-all duration-300 placeholder-gray-200 ${isSearchActive ? 'w-40 opacity-300' : 'w-0 opacity-0'} `}
+                            className="bg-transparent border-b-2 border-yellow-400 text-white outline-none transition-all duration-300 placeholder-gray-200 w-40 opacity-100"
                             value={searchQuery}
-                            onChange={(e) => setSearchQuery(e.target.value)}
-                            onBlur={handleSearchInputBlur}
-                            autoFocus={isSearchActive}
+                            onChange={handleSearchChange}
                             placeholder="Search..."
                             style={{ transition: 'width 0.3s, opacity 0.7s' }}
                         />
                         <button 
                             className="ml-3 text-white focus:outline-none p-2" 
-                            onClick={handleSearchClick}
                         >
                             <svg 
                                 xmlns="http://www.w3.org/2000/svg" 
@@ -78,20 +104,37 @@ export const Weather = () => {
                                 <line x1="21" y1="21" x2="16.65" y2="16.65" />
                             </svg>
                         </button>
+                        {isSearchActive && suggestions.length > 0 && (
+                            <ul className="absolute top-full mt-2 w-full bg-black/60 text-white backdrop-blur-lg shadow-md rounded-md max-h-48 overflow-y-auto">
+                                {suggestions.map((suggestion) => (
+                                    <li
+                                        key={suggestion.name}
+                                        onClick={() => handleSuggestionClick(suggestion)}
+                                        className="p-2 cursor-pointer hover:bg-white/40"
+                                    >
+                                        {suggestion.name}, {suggestion.country}
+                                    </li>
+                                ))}
+                            </ul>
+                        )}
                     </div>
-                    <h1 className="text-2xl text-white font-bold text-right">Sun 25°C</h1>
-                    <h1 className="text-2xl text-white font-bold">Air quality - 20 - Good</h1>
+                    <h1 className="text-2xl text-white font-bold text-right">
+                        {getCurrentDate()} 
+                    </h1>
+                    <h1 className="text-2xl text-white font-bold text-right">
+                        Air Quality - {airQuality} - {airQuality === 1 ? 'Good' : airQuality === 2 ? 'Fair' : airQuality === 3 ? 'Moderate' : airQuality === 4 ? 'Poor' : 'Very Poor'}
+                    </h1>
                 </div>
             </div>
             
             <div className='flex'>
                 <div className='w-[39rem] h-56 m-5 backdrop-blur-sm p-5 gap-3 bg-white/5 rounded-xl shadow-2xl '>
-                    <WeatherDetails/>
+                    <WeatherDetails weatherData={weatherData} />
                 </div>
                 <div className='w-[39rem] h-56 m-5 backdrop-blur-sm bg-white/5 rounded-xl shadow-2xl '>
-                    <ForecastGraph/>
+                    <ForecastGraph forecastData={weatherData} />
                 </div>
             </div>
         </div>
     );
-}
+};
