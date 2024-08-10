@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState ,useEffect } from 'react';
 import Day from '../assets/bg2.jpg';
 import WeatherDetails from './WeatherDetails';
 import ForecastGraph from './ForecastGraph';
@@ -6,6 +6,17 @@ import ForecastGraph from './ForecastGraph';
 export const Weather = () => {
     const [isSearchActive, setIsSearchActive] = useState(false);
     const [searchQuery, setSearchQuery] = useState('');
+    const [weatherData, setWeatherData] = useState(null);
+    console.log(weatherData);
+    useEffect(() => {
+        getWeatherCurrent();
+    }, []);
+    const getWeatherCurrent = async () => {
+        const data = await fetch('https://api.openweathermap.org/data/2.5/weather?lat=23.7644025&lon=90.389015&units=metric&appid=4088cfc1b43e1e1ec6e8b38ac9186ce3');
+        const jsonData = await data.json();
+        setWeatherData(jsonData);
+
+    }
 
     const handleSearchClick = () => {
         if (searchQuery) {
@@ -34,8 +45,8 @@ export const Weather = () => {
         >
             <div className="w-[80rem] h-[18rem] mt-10 backdrop-blur-sm bg-white/5 rounded-xl shadow-2xl flex justify-between ">
                 <div className='flex flex-col ml-20 mt-14 gap-10 '>
-                    <h1 className="text-4xl text-white font-bold">New York</h1>
-                    <h1 className="text-6xl font-bold text-center text-yellow-400">25°C <span className='text-3xl text-white'>Overcast</span></h1>
+                    <h1 className="text-4xl text-white font-bold">{weatherData?.name}</h1>
+                    <h1 className="text-6xl font-bold text-center text-yellow-400">{Math.round(weatherData?.main?.temp)}°C <span className='text-3xl text-white'>Overcast</span></h1>
                 </div>
                 <div className='flex flex-col gap-5 mx-20 my-10 relative'>
                     <div className="flex items-center justify-end relative">
