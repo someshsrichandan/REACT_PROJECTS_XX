@@ -71,7 +71,7 @@
 </details>
    
 <details close>
-   <summary><h1> 📝REACT_PROJECT_02 - WeatherApp</h1></summary>
+   <summary><h1> 🌦️REACT_PROJECT_02 - WeatherApp</h1></summary>
    # 🌤️ WeatherApp
 
 Welcome to WeatherApp, a beautifully designed weather application that provides live weather data, a 5-day forecast, and detailed weather metrics for any location around the globe. With a sleek and modern UI, users can easily search for their desired location and get real-time weather updates, air quality information, and more.
