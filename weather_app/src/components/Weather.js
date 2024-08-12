@@ -12,6 +12,7 @@ export const Weather = () => {
     const [suggestions, setSuggestions] = useState([]);
     const [airQuality, setAirQuality] = useState(null);
     const [loading, setLoading] = useState(true);
+    
 
     const apiKey = process.env.REACT_APP_OPENWEATHER_API_KEY;
     
@@ -73,7 +74,7 @@ export const Weather = () => {
 
     return (
         <div 
-            className="w-screen h-screen flex flex-col justify-center items-center"
+            className="flex flex-col items-center justify-center w-screen h-screen"
             style={{ 
                 backgroundImage: `url(${Day})`, 
                 backgroundSize: 'cover', 
@@ -82,33 +83,33 @@ export const Weather = () => {
             }}
         >
             <div className="w-[80rem] h-[18rem] mt-10 backdrop-blur-sm bg-white/5 rounded-xl shadow-2xl flex justify-between">
-                <div className='flex flex-col ml-20 text-left mt-14 gap-10'>
+                <div className='flex flex-col gap-10 ml-20 text-left mt-14'>
                     {loading ? (
                         <div className="w-32 h-8 bg-gray-700 rounded-md animate-pulse"></div>
                     ) : (
-                        <h1 className="text-4xl text-white font-bold">{weatherData?.name}</h1>
+                        <h1 className="text-4xl font-bold text-white">{weatherData?.name}</h1>
                     )}
                     {loading ? (
                         <div className="w-40 h-12 bg-gray-700 rounded-md animate-pulse"></div>
                     ) : (
                         <h1 className="text-6xl font-bold text-yellow-400">
                             {Math.round(weatherData?.main?.temp)}°C 
-                            <span className='text-2xl ml-4 text-white'>{weatherData?.weather[0]?.description}</span>
+                            <span className='ml-4 text-2xl text-white'>{weatherData?.weather[0]?.description}</span>
                         </h1>
                     )}
                 </div>
-                <div className='flex flex-col gap-5 mx-20 my-10 relative'>
-                    <div className="flex items-center justify-end relative">
+                <div className='relative flex flex-col gap-5 mx-20 my-10'>
+                    <div className="relative flex items-center justify-end">
                         <input 
                             type="text"
-                            className="bg-transparent border-b-2 border-yellow-400 text-white outline-none transition-all duration-300 placeholder-gray-200 w-40 opacity-100"
+                            className="w-40 text-white placeholder-gray-200 transition-all duration-300 bg-transparent border-b-2 border-yellow-400 outline-none opacity-100"
                             value={searchQuery}
                             onChange={handleSearchChange}
                             placeholder="Search..."
                             style={{ transition: 'width 0.3s, opacity 0.7s' }}
                         />
                         <button 
-                            className="ml-3 text-white focus:outline-none p-2" 
+                            className="p-2 ml-3 text-white focus:outline-none" 
                         >
                             <svg 
                                 xmlns="http://www.w3.org/2000/svg" 
@@ -118,14 +119,14 @@ export const Weather = () => {
                                 strokeWidth="2" 
                                 strokeLinecap="round" 
                                 strokeLinejoin="round" 
-                                className="h-6 w-6"
+                                className="w-6 h-6"
                             >
                                 <circle cx="11" cy="11" r="8" />
                                 <line x1="21" y1="21" x2="16.65" y2="16.65" />
                             </svg>
                         </button>
                         {isSearchActive && suggestions.length > 0 && (
-                            <ul className="absolute top-full mt-2 w-full bg-black/60 text-white backdrop-blur-lg shadow-md rounded-md max-h-48 overflow-y-auto">
+                            <ul className="absolute w-full mt-2 overflow-y-auto text-white rounded-md shadow-md top-full bg-black/60 backdrop-blur-lg max-h-48">
                                 {suggestions.map((suggestion) => (
                                     <li
                                         key={suggestion.name}
@@ -141,14 +142,14 @@ export const Weather = () => {
                     {loading ? (
                         <div className="w-40 h-8 bg-gray-700 rounded-md animate-pulse"></div>
                     ) : (
-                        <h1 className="text-2xl text-white font-bold text-right">
+                        <h1 className="text-2xl font-bold text-right text-white">
                             {getCurrentDate()} 
                         </h1>
                     )}
                     {loading ? (
                         <div className="w-48 h-8 bg-gray-700 rounded-md animate-pulse"></div>
                     ) : (
-                        <h1 className="text-2xl text-white font-bold text-right">
+                        <h1 className="text-2xl font-bold text-right text-white">
                             Air Quality - {airQuality} - {airQuality === 1 ? 'Good' : airQuality === 2 ? 'Fair' : airQuality === 3 ? 'Moderate' : airQuality === 4 ? 'Poor' : 'Very Poor'}
                         </h1>
                     )}

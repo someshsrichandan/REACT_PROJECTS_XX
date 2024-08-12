@@ -8,15 +8,16 @@ const getWeatherIcon = (description) => {
     return '🌤️';
 };
 
+
 const ForecastGraph = ({ forecastData }) => {
     return (
-        <div className="flex justify-around items-center py-4 mt-10">
+        <div className="flex items-center justify-around py-4 mt-10">
             {forecastData && forecastData.map((dayData, index) => (
-                <div key={index} className="text-center text-white">
-                    <div className="text-lg font-semibold mb-1">
+                <div className="mb-1 text-lg font-semibold">
+                        <div key={index} className="text-center text-white">
                         {new Date(dayData.dt_txt).toLocaleDateString('en-US', { weekday: 'short' })}
                     </div>
-                    <div className="text-4xl mb-2">
+                    <div className="mb-2 text-4xl">
                         {getWeatherIcon(dayData.weather[0].description)}
                     </div>
                     <div className="text-xl font-bold">{Math.round(dayData.main.temp)}°C</div>
