@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import NewsFeed from './components/NewsFeed';
 import PriceChart from './components/PriceChart';
-// import InvestmentSuggestions from './components/InvestmentSuggestions';
+import InvestmentSuggestions from './components/InvestmentSuggestions';
 
 const App = () => {
   const [selectedCoin, setSelectedCoin] = useState('BTC');
@@ -18,7 +18,7 @@ const App = () => {
       </header>
       <NewsFeed />
       <PriceChart coin={selectedCoin} />
-      {/* <InvestmentSuggestions /> */}
+      <InvestmentSuggestions />
     </div>
   );
 };
