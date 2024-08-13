@@ -1,25 +1,28 @@
-import logo from './logo.svg';
-import './App.css';
+// src/App.js
 
-function App() {
+import React, { useState } from 'react';
+import NewsFeed from './components/NewsFeed';
+import PriceChart from './components/PriceChart';
+import InvestmentSuggestions from './components/InvestmentSuggestions';
+
+const App = () => {
+  const [selectedCoin, setSelectedCoin] = useState('bitcoin');
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+    <div>
+      <header>
+        <h1>InvestMinder</h1>
+        <select onChange={(e) => setSelectedCoin(e.target.value)} value={selectedCoin}>
+          <option value="bitcoin">Bitcoin</option>
+          <option value="ethereum">Ethereum</option>
+          <option value="ripple">Ripple</option>
+        </select>
       </header>
+      <NewsFeed />
+      <PriceChart coin={selectedCoin} />
+      <InvestmentSuggestions />
     </div>
   );
-}
+};
 
 export default App;
