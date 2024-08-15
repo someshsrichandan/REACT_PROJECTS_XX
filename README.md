@@ -127,7 +127,7 @@ Follow these steps to set up the project locally:
 </details>
 ## 🎥 **Upcoming Project: YouTube Clone**
 
-The second project in this repository will be a YouTube clone. This project is currently in progress and will aim to replicate key features of YouTube, including:
+The next project in this repository will be a YouTube clone. This project is currently in progress and will aim to replicate key features of YouTube, including:
 
 - **🔍 Search Functionality**: Search for videos by title, description, or tags.
 - **📹 Video Playback**: Watch videos with a responsive player.
