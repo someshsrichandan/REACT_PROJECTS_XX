@@ -12,11 +12,8 @@ export const Weather = () => {
     const [suggestions, setSuggestions] = useState([]);
     const [airQuality, setAirQuality] = useState(null);
     const [loading, setLoading] = useState(true);
-    
 
     const apiKey = process.env.REACT_APP_OPENWEATHER_API_KEY;
-    
-    
 
     useEffect(() => {
         getWeatherCurrent(28.6139, 77.2090); // Coordinates for Delhi, India
@@ -74,7 +71,7 @@ export const Weather = () => {
 
     return (
         <div 
-            className="flex flex-col items-center justify-center w-screen h-screen"
+            className="flex flex-col items-center justify-center w-screen min-h-screen p-4 lg:p-8"
             style={{ 
                 backgroundImage: `url(${Day})`, 
                 backgroundSize: 'cover', 
@@ -82,31 +79,30 @@ export const Weather = () => {
                 filter: 'brightness(0.9)'  
             }}
         >
-            <div className="w-[80rem] h-[18rem] mt-10 backdrop-blur-sm bg-white/5 rounded-xl shadow-2xl flex justify-between">
-                <div className='flex flex-col gap-10 ml-20 text-left mt-14'>
+            <div className="w-full max-w-7xl h-auto lg:h-[18rem] mt-10 backdrop-blur-sm bg-white/5 rounded-xl shadow-2xl flex flex-col lg:flex-row justify-between p-6 lg:p-10">
+                <div className='flex flex-col gap-6 text-center lg:gap-10 lg:text-left'>
                     {loading ? (
-                        <div className="w-32 h-8 bg-gray-700 rounded-md animate-pulse"></div>
+                        <div className="w-32 h-8 mx-auto bg-gray-700 rounded-md animate-pulse lg:mx-0"></div>
                     ) : (
-                        <h1 className="text-4xl font-bold text-white">{weatherData?.name}</h1>
+                        <h1 className="text-3xl font-bold text-white lg:text-4xl">{weatherData?.name}</h1>
                     )}
                     {loading ? (
-                        <div className="w-40 h-12 bg-gray-700 rounded-md animate-pulse"></div>
+                        <div className="w-40 h-12 mx-auto bg-gray-700 rounded-md animate-pulse lg:mx-0"></div>
                     ) : (
-                        <h1 className="text-6xl font-bold text-yellow-400">
+                        <h1 className="text-4xl font-bold text-yellow-400 lg:text-6xl">
                             {Math.round(weatherData?.main?.temp)}°C 
-                            <span className='ml-4 text-2xl text-white'>{weatherData?.weather[0]?.description}</span>
+                            <span className='ml-2 text-lg text-white lg:ml-4 lg:text-2xl'>{weatherData?.weather[0]?.description}</span>
                         </h1>
                     )}
                 </div>
-                <div className='relative flex flex-col gap-5 mx-20 my-10'>
-                    <div className="relative flex items-center justify-end">
+                <div className='relative flex flex-col gap-5 mt-6 lg:mt-0 lg:mx-10'>
+                    <div className="relative flex items-center justify-center lg:justify-end">
                         <input 
                             type="text"
-                            className="w-40 text-white placeholder-gray-200 transition-all duration-300 bg-transparent border-b-2 border-yellow-400 outline-none opacity-100"
+                            className="text-white placeholder-gray-200 transition-all duration-300 bg-transparent border-b-2 border-yellow-400 outline-none w-60"
                             value={searchQuery}
                             onChange={handleSearchChange}
                             placeholder="Search..."
-                            style={{ transition: 'width 0.3s, opacity 0.7s' }}
                         />
                         <button 
                             className="p-2 ml-3 text-white focus:outline-none" 
@@ -140,41 +136,41 @@ export const Weather = () => {
                         )}
                     </div>
                     {loading ? (
-                        <div className="w-40 h-8 bg-gray-700 rounded-md animate-pulse"></div>
+                        <div className="w-40 h-8 mx-auto bg-gray-700 rounded-md animate-pulse lg:mx-0"></div>
                     ) : (
-                        <h1 className="text-2xl font-bold text-right text-white">
+                        <h1 className="text-xl font-bold text-center text-white lg:text-2xl lg:text-right">
                             {getCurrentDate()} 
                         </h1>
                     )}
                     {loading ? (
-                        <div className="w-48 h-8 bg-gray-700 rounded-md animate-pulse"></div>
+                        <div className="w-48 h-8 mx-auto bg-gray-700 rounded-md animate-pulse lg:mx-0"></div>
                     ) : (
-                        <h1 className="text-2xl font-bold text-right text-white">
+                        <h1 className="text-xl font-bold text-center text-white lg:text-2xl lg:text-right">
                             Air Quality - {airQuality} - {airQuality === 1 ? 'Good' : airQuality === 2 ? 'Fair' : airQuality === 3 ? 'Moderate' : airQuality === 4 ? 'Poor' : 'Very Poor'}
                         </h1>
                     )}
                 </div>
             </div>
             
-            <div className='flex'>
-            {/* Weather Details */}
-            <div className='w-[39rem] h-56 m-5 backdrop-blur-sm p-5 gap-3 bg-white/5 rounded-xl shadow-2xl'>
-                {loading ? (
-                    <div className='mt-10'><Shimmer count={5} /></div>
-                ) : (
-                    <WeatherDetails weatherData={weatherData} />
-                )}
-            </div>
+            <div className='flex flex-col w-full mt-10 lg:flex-row max-w-7xl'>
+                {/* Weather Details */}
+                <div className='w-full h-auto gap-3 p-5 m-5 shadow-2xl lg:w-1/2 lg:h-56 backdrop-blur-sm bg-white/5 rounded-xl'>
+                    {loading ? (
+                        <div className='mt-10'><Shimmer count={5} /></div>
+                    ) : (
+                        <WeatherDetails weatherData={weatherData} />
+                    )}
+                </div>
 
-            {/* Forecast Graph */}
-            <div className='w-[39rem] h-56 m-5 backdrop-blur-sm bg-white/5 rounded-xl shadow-2xl'>
-                {loading ? (
-                    <Shimmer className="" count={5} />
-                ) : (
-                    <div className='mt-14'><ForecastGraph forecastData={forecastData} /></div>
-                )}
+                {/* Forecast Graph */}
+                <div className='w-full h-auto m-5 shadow-2xl lg:w-1/2 lg:h-56 backdrop-blur-sm bg-white/5 rounded-xl'>
+                    {loading ? (
+                        <Shimmer className="" count={5} />
+                    ) : (
+                        <div className='mt-10 lg:mt-14'><ForecastGraph forecastData={forecastData} /></div>
+                    )}
+                </div>
             </div>
-        </div>
         </div>
     );
 };
