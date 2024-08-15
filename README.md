@@ -80,7 +80,7 @@ Welcome to WeatherApp, a beautifully designed weather application that provides 
 
 ## 🚀 Features
 
-- **Beautiful UI:** Experience a modern, clean, and responsive design that looks great on any device.
+- **Beautiful UI:** Experience a modern, clean,single page, and responsive design that looks great on any device.
 - **Search Functionality:** Quickly search for any city worldwide and get instant weather updates.
 - **Live Weather Data:** View current weather conditions, including temperature, weather description, and more.
 - **5-Day Forecast:** Get a detailed weather forecast for the next 5 days, including daily highs and lows.
