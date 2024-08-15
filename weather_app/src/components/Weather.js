@@ -154,7 +154,7 @@ export const Weather = () => {
             
             <div className='flex flex-col w-full mt-10 lg:flex-row max-w-7xl'>
                 {/* Weather Details */}
-                <div className='w-full h-auto gap-3 p-5 m-5 shadow-2xl lg:w-1/2 lg:h-56 backdrop-blur-sm bg-white/5 rounded-xl'>
+                <div className='w-full h-auto gap-3 p-5 m-5 shadow-2xl sm:mr-10 lg:w-1/2 lg:h-56 backdrop-blur-sm bg-white/5 rounded-xl'>
                     {loading ? (
                         <div className='mt-10'><Shimmer count={5} /></div>
                     ) : (
