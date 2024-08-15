@@ -1,26 +1,35 @@
+// src/App.js
 import React, { useState } from 'react';
-import NewsFeed from './components/NewsFeed';
-import PriceChart from './components/PriceChart';
-import InvestmentSuggestions from './components/InvestmentSuggestions';
+import MyChart from './components/MyChart';
+import NewsList from './components/NewsList';
+import Suggestion from './components/Suggestion';
 
-const App = () => {
-  const [selectedCoin, setSelectedCoin] = useState('BTC');
+function App() {
+    const [suggestion, setSuggestion] = useState('');
 
-  return (
-    <div>
-      <header>
-        <h1>InvestMinder</h1>
-        <select onChange={(e) => setSelectedCoin(e.target.value)} value={selectedCoin}>
-          <option value="BTC">Bitcoin</option>
-          <option value="ETH">Ethereum</option>
-          <option value="XRP">Ripple</option>
-        </select>
-      </header>
-      <NewsFeed />
-      <PriceChart coin={selectedCoin} />
-      <InvestmentSuggestions />
-    </div>
-  );
-};
+    const analyzeNews = (news) => {
+        let positive = 0, negative = 0;
+        news.forEach(article => {
+            if (article.description.includes('rise') || article.description.includes('gain')) positive++;
+            if (article.description.includes('fall') || article.description.includes('loss')) negative++;
+        });
+        if (positive > negative) {
+            setSuggestion('Buy');
+        } else if (negative > positive) {
+            setSuggestion('Sell');
+        } else {
+            setSuggestion('Hold');
+        }
+    };
+
+    return (
+        <div className="min-h-screen p-8 bg-gray-50">
+            <h1 className="mb-8 text-4xl font-bold text-indigo-700">InvestMinder</h1>
+            <MyChart />
+            <NewsList onAnalyze={analyzeNews} />
+            <Suggestion suggestion={suggestion} />
+        </div>
+    );
+}
 
 export default App;
