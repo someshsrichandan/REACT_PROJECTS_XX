@@ -11,12 +11,12 @@ export default function WeatherDetails({weatherData}) {
     ];
     return (
         <div>
-            <h1 className='text-gray-300 text-2xl font-semibold'>Weather Details</h1>
+            <h1 className='text-2xl font-semibold text-gray-300'>Weather Details</h1>
             <div className='flex grid-flow-row gap-3 mt-5'>
                 {details.map((detail, index) => (
-                    <div key={index} className='w-24 h-28 backdrop-blur-sm bg-black/60 rounded-xl flex justify-center items-center flex-col gap-4' >
-                    <h1 className='text-gray-300 text-center text-sm'>{detail.label}</h1>
-                    <p className='text-white text-center text-sm'>{detail.value}</p>
+                    <div key={index} className='flex flex-col items-center justify-center w-24 gap-4 h-28 backdrop-blur-sm bg-black/60 rounded-xl' >
+                    <h1 className='text-sm text-center text-gray-300'>{detail.label}</h1>
+                    <p className='text-sm text-center text-white'>{detail.value}</p>
                 </div>
                 ))}
 
