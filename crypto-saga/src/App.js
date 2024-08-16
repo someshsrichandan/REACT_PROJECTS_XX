@@ -3,7 +3,7 @@ import { Switch , Route , Link  } from 'react-router-dom';
 import { Layout , Typography , Space } from 'antd';
 import { Navbar } from './components/Navbar';
 
-export const App = () => {
+const  App = () => {
   return (
     <div>
       <div className='navbar'>
@@ -18,3 +18,4 @@ export const App = () => {
     </div>
   )
 }
+export default App;
