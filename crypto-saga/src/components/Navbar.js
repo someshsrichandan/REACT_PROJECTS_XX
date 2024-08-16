@@ -13,6 +13,20 @@ export const Navbar = () => {
                 <Link to='/'>CryptoSaga</Link>
             </Typography.Title>
         </div>
+        <Menu theme='dark'>
+            <Menu.Item key='1' icon={<HomeOutlined/>}>
+                <Link to='/'>Home</Link>
+            </Menu.Item>
+            <Menu.Item key='1' icon={<FundOutlined/>}>
+                <Link to='/cryptocurrencies'>Crypto Currencies</Link>
+            </Menu.Item>
+            <Menu.Item key='1' icon={<MoneyCollectOutlined/>}>
+                <Link to='/exhanges'>Exchanges</Link>
+            </Menu.Item>
+            <Menu.Item key='1' icon={<BulbOutlined/>}>
+                <Link to='/news'>News</Link>
+            </Menu.Item>
+        </Menu>
     </div>
   )
 }
